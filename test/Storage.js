@@ -42,6 +42,17 @@ StoragePr.prototype.search = function(key, value) {
   return result;
 }
 
+StoragePr.prototype.searchId = function(key, value) {
+  var result = new Array();
+  var item;
+  for (item in this._ListOfData){
+    if (this._ListOfData[item][key] === value) {
+      result = +item;
+    }
+  }
+  return result;
+}
+
 function makeId() {
   var currentCounter = 1;
   function counter() {
