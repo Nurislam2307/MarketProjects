@@ -6,7 +6,9 @@ function StoragePr() {
 
 StoragePr.prototype.addData = function(data) {
   var id = this._idCounter();
-  this._ListOfData[id] = data;
+  var localData = data;
+  localData.id = id;
+  this._ListOfData[id] = localData;
   return id;
 }
 
@@ -24,7 +26,8 @@ StoragePr.prototype.updateData = function(id, data) {
 StoragePr.prototype.deleteData = function(id) {
   if (id in this._ListOfData) {
     this._ListOfData[id].deleted = true;
-  }
+  } else {return "Error, obj was not found";
+}
 }
 
 StoragePr.prototype.deleteDataTotaly = function(id) {
@@ -34,12 +37,18 @@ StoragePr.prototype.deleteDataTotaly = function(id) {
 StoragePr.prototype.search = function(key, value) {
   var result = new Array();
   var item;
+  var flag = false;
   for (item in this._ListOfData){
     if (this._ListOfData[item][key] === value) {
+      flag = true;
       result.push(this._ListOfData[item]);
     }
   }
-  return result;
+  if (flag) {
+    return result;
+  } else {
+    return "Error, data was not found";
+  }
 }
 
 StoragePr.prototype.searchId = function(key, value) {
